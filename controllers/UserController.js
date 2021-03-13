@@ -1,7 +1,7 @@
 'use strict';
 const respon = require('../respon');
 const jwt = require('jsonwebtoken');
-const { UserModel, PendidikanModel} =  require('../config/db');
+const { UserModel, PendidikanModel } = require('../config/db');
 const multer = require('multer');
 const uploadImage = require('../middlewares/uploadImage');
 
@@ -29,10 +29,10 @@ exports.getUser = (req, res) => {
 }
 
 exports.updateUser = (req, res) => {
-    UserModel.update(req.body,{
+    UserModel.update(req.body, {
         where: {
-                USER_ID: req.params.id
-            }
+            USER_ID: req.params.id
+        }
     }).then(dataHasil => {
         var message = `Berhasil Menyimpan!`;
         respon.berhasil(dataHasil, message, res)
@@ -41,8 +41,8 @@ exports.updateUser = (req, res) => {
 
 exports.signup = (req, res) => {
     UserModel.create({
-        USER_EMAIL : req.body.USER_EMAIL,
-        USER_PASSWORD : req.body.USER_PASSWORD
+        USER_EMAIL: req.body.USER_EMAIL,
+        USER_PASSWORD: req.body.USER_PASSWORD
     }).then(dataHasil => {
         var message = `Berhasil Menyimpan!`;
         respon.berhasil(dataHasil, message, res)
@@ -52,13 +52,13 @@ exports.signup = (req, res) => {
 exports.signin = (req, res) => {
     UserModel.findAll({
         where: {
-                USER_EMAIL: req.body.USER_EMAIL
-            }
+            USER_EMAIL: req.body.USER_EMAIL
+        }
     }).then(dataHasil => {
         if (req.body.USER_PASSWORD == dataHasil[0].USER_PASSWORD) {
             var message = `Berhasil Login!`;
-            const token = jwt.sign({ userId: dataHasil.insertId }, 'MY_SECRET_KEY' );
-            respon.berhasil({token:token}, message, res)
+            const token = jwt.sign({ userId: dataHasil.insertId }, 'MY_SECRET_KEY');
+            respon.berhasil({ token: token }, message, res)
         } else {
             var message = `Data Kosong!`;
             respon.berhasil(null, message, res)
@@ -69,7 +69,7 @@ exports.signin = (req, res) => {
 
 exports.upload = (req, res) => {
     let upload = multer({ storage: uploadImage.storage, fileFilter: uploadImage.imageFilter }).single('img');
-upload(req, res, function(err) {
+    upload(req, res, function (err) {
 
         if (req.fileValidationError) {
             return res.send(req.fileValidationError);
@@ -84,6 +84,6 @@ upload(req, res, function(err) {
             return res.send(err);
         }
 
-res.json({'message': 'upload success'});
-});
+        res.json({ 'message': 'upload success' });
+    });
 }
