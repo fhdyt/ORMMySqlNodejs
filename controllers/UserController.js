@@ -44,7 +44,7 @@ exports.signup = (req, res) => {
         USER_EMAIL: req.body.USER_EMAIL,
         USER_PASSWORD: req.body.USER_PASSWORD
     }).then(dataHasil => {
-        var message = `Berhasil Menyimpan!`;
+        var message = `Berhasil Menyimpan`;
         respon.berhasil(dataHasil, message, res)
     }).catch(err => console.log(err))
 }
@@ -57,7 +57,7 @@ exports.signin = (req, res) => {
         }
     }).then(dataHasil => {
         if (req.body.USER_PASSWORD == dataHasil[0].USER_PASSWORD) {
-            var message = `Berhasil Login!`;
+            var message = `Berhasil Login`;
             const token = jwt.sign({ userId: dataHasil[0] }, 'MY_SECRET_KEY');
             respon.berhasil({ token: token }, message, res)
         } else {
