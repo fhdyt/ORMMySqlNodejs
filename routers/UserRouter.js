@@ -10,7 +10,7 @@ app.get('/', requireAuth, (req, res) => {
     res.json({ 'message': 'ok' });
 });
 
-app.route('/user').get(UserController.getUser);
+app.route('/user').get(requireAuth, UserController.getUser);
 
 app.route('/signup').post(UserController.signup);
 app.route('/signin').post(UserController.signin);

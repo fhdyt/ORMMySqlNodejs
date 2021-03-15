@@ -18,7 +18,7 @@ exports.getUser = (req, res) => {
     }).then(dataHasil => {
 
         if (dataHasil.length > 0) {
-            var message = `Berhasil Mangambil!`;
+            var message = `Berhasil Mangambil! ${req.user.USER_EMAIL}`;
             respon.berhasil(dataHasil, message, res)
         } else {
             var message = `Data Kosong!`;
@@ -52,12 +52,13 @@ exports.signup = (req, res) => {
 exports.signin = (req, res) => {
     UserModel.findAll({
         where: {
-            USER_EMAIL: req.body.USER_EMAIL
+            USER_EMAIL: req.body.USER_EMAIL,
+            USER_PASSWORD: req.body.USER_PASSWORD
         }
     }).then(dataHasil => {
         if (req.body.USER_PASSWORD == dataHasil[0].USER_PASSWORD) {
             var message = `Berhasil Login!`;
-            const token = jwt.sign({ userId: dataHasil.insertId }, 'MY_SECRET_KEY');
+            const token = jwt.sign({ userId: dataHasil[0] }, 'MY_SECRET_KEY');
             respon.berhasil({ token: token }, message, res)
         } else {
             var message = `Data Kosong!`;

@@ -13,6 +13,7 @@ module.exports = (req, res, next) => {
     if (err) {
       return res.status(401).send({ error: 'You must be logged in.' });
     }
+    req.user = payload.userId
     next();
   });
 };
