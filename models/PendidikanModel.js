@@ -15,6 +15,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             field: 'PENDIDIKAN_AKADEMIK'
         },
+        'PENDIDIKAN_TERAKHIR': {
+            type: Sequelize.STRING,
+            field: 'PENDIDIKAN_TERAKHIR'
+        },
         'PENDIDIKAN_JURUSAN': {
             type: Sequelize.STRING,
             field: 'PENDIDIKAN_JURUSAN'
@@ -29,7 +33,7 @@ module.exports = (sequelize, Sequelize) => {
         },
     }, {
         freezeTableName: true,
-        timestamps: true
+        timestamps: false
     });
 
     PendidikanModel.associate = function (models) {

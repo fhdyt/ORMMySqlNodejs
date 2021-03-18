@@ -56,6 +56,7 @@ exports.signin = (req, res) => {
             USER_PASSWORD: req.body.USER_PASSWORD
         }
     }).then(dataHasil => {
+
         if (req.body.USER_PASSWORD == dataHasil[0].USER_PASSWORD) {
             var message = `Berhasil Login`;
             const token = jwt.sign({ userId: dataHasil[0] }, 'MY_SECRET_KEY');
@@ -87,4 +88,24 @@ exports.upload = (req, res) => {
 
         res.json({ 'message': 'upload success' });
     });
+}
+
+exports.tambahPendidikan = (req, res) => {
+    UserModel.findAll({
+        where: {
+            USER_ID: req.params.id
+        }
+    }).then(dataHasil => {
+
+        dataHasil.forEach(element => {
+            PendidikanModel.create({
+                USER_EMAIL: element.USER_EMAIL,
+                PENDIDIKAN_TERAKHIR: req.body.PENDIDIKAN_TERAKHIR
+            }).then(inputHasil => {
+                var message = `Berhasil Menyimpan`;
+                respon.berhasil(inputHasil, message, res)
+            }).catch(err => console.log(err))
+        });
+
+    }).catch(err => console.log(err))
 }
