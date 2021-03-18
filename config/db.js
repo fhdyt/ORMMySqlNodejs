@@ -16,6 +16,7 @@ db.sequelize = sequelize;
 //models
 db.UserModel = require('../models/UserModel.js')(sequelize, Sequelize);
 db.PendidikanModel = require('../models/PendidikanModel.js')(sequelize, Sequelize);
+db.PekerjaanModel = require('../models/PekerjaanModel.js')(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

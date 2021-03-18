@@ -42,6 +42,7 @@ module.exports = (sequelize, Sequelize) => {
             as: 'USER'
         });
 
+
     }
 
     return PendidikanModel;

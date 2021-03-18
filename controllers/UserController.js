@@ -42,12 +42,34 @@ exports.updateUser = (req, res) => {
 exports.signup = (req, res) => {
     UserModel.create({
         USER_EMAIL: req.body.USER_EMAIL,
-        USER_PASSWORD: req.body.USER_PASSWORD
+        USER_PASSWORD: req.body.USER_PASSWORD,
     }).then(dataHasil => {
         var message = `Berhasil Menyimpan`;
         respon.berhasil(dataHasil, message, res)
     }).catch(err => console.log(err))
 }
+
+//----------------------------- INPUT KE2 TABLE -----------------------------
+
+// exports.signup = (req, res) => {
+//     UserModel.create({
+//         USER_EMAIL: req.body.USER_EMAIL,
+//         USER_PASSWORD: req.body.USER_PASSWORD,
+//         PENDIDIKAN: { PENDIDIKAN_TERAKHIR: req.body.PENDIDIKAN_TERAKHIR },
+//     },
+//         {
+//             include: [
+//                 {
+//                     as: 'PENDIDIKAN',
+//                     model: PendidikanModel,
+//                 },
+
+//             ],
+//         }).then(dataHasil => {
+//             var message = `Berhasil Menyimpan`;
+//             respon.berhasil(dataHasil, message, res)
+//         }).catch(err => console.log(err))
+// }
 
 exports.signin = (req, res) => {
     UserModel.findAll({
@@ -109,3 +131,4 @@ exports.tambahPendidikan = (req, res) => {
 
     }).catch(err => console.log(err))
 }
+
