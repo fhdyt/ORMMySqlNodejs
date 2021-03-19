@@ -107,8 +107,8 @@ exports.upload = (req, res) => {
         else if (err) {
             return res.send(err);
         }
-
-        res.json({ 'message': 'upload success' });
+        var message = `Upload Sukses`;
+        respon.berhasil(req.file, message, res)
     });
 }
 

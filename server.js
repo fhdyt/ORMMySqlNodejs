@@ -4,16 +4,15 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     cors = require('cors');
 
-
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 }));
 app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 }));
+
 var corsOptions = {
     origin: 'http://localhost/',
     optionsSuccessStatus: 200
 }
 app.use(cors({ corsOptions }));
 
-//index webserver api
 app.get('/', (req, res) => {
     var message = "Rest API Connected";
     res.status(200).json({
